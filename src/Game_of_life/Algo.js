@@ -5,17 +5,19 @@ const numCols = 50
 
 const direction = [[0,1],[1,0],[0,-1],[-1,0],[1,1],[-1,-1],[1,-1],[-1,1]]
 
+function getnewcleardgrid(){
+    const rows = [];
+    for(let i = 0;i<numRows;i++){
+        rows.push(Array.from(Array(numCols),()=>'0'))
+    }
+    return rows 
+}
+
 function Algo(){
     const [run,setRun] = useState(false)
     const running = useRef()
     running.current = run
-    const [grid,setGrid] = useState(()=>{
-        const rows = [];
-        for(let i = 0;i<numRows;i++){
-            rows.push(Array.from(Array(numCols),()=>'0'))
-        }
-        return rows
-    })
+    const [grid,setGrid] = useState(getnewcleardgrid())
     const changesatefunctin = (i,j)=>{
         var new_arr = JSON.parse(JSON.stringify(grid))
         new_arr[i][j] = new_arr[i][j]==='0'?'1':'0'
@@ -44,7 +46,6 @@ function Algo(){
                         new_grid[i][j] = '1'
                     }
                     else if(neighbors===2){
-                        
                     }
                     else{
                         new_grid[i][j] = '0'
@@ -68,6 +69,11 @@ function Algo(){
                 simulation()
             }
         }}> {running.current?"stop":"start"} </button>
+        <button onClick={()=>{
+            setRun(false);
+            running.current = false
+            setGrid(getnewcleardgrid())
+        }}>clear</button>
     <div style={{
         display:'grid',gridTemplateColumns:'repeat(50,20px)',gridTemplateRows:'repeat(50,20px)'}}>
         {grid.map((row,i)=>(
