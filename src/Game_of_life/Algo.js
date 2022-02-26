@@ -29,21 +29,21 @@ function Algo(){
             var new_grid = JSON.parse(JSON.stringify(g))
             for(let i in new_grid){
                 for(let j in new_grid[i]){
-                    var n = 0
-                    direction.forEach((k)=>{
-                        var x = parseInt(i) + k[0]
-                        var y = parseInt(j) + k[1]
+                    var neighbors = 0;
+                    for(let k = 0;k<direction.length;k++){
+                        var x = parseInt(i) + direction[k][0]
+                        var y = parseInt(j) + direction[k][1]
                         if(x>=0 && y>=0 && x<numRows && y<numCols && g[x][y] === '1'){
-                            n+=1
+                            neighbors+=1
                         }
-                    })
-                    if(n>3){
+                    }
+                    if(neighbors>3){
                         new_grid[i][j] = '0'
                     }
-                    else if(n===3){
+                    else if(neighbors===3){
                         new_grid[i][j] = '1'
                     }
-                    else if(n===2){
+                    else if(neighbors===2){
                         
                     }
                     else{
@@ -55,7 +55,7 @@ function Algo(){
             return new_grid
         })
         setTimeout(() => {
-            simulation(grid)
+            simulation()
         },100);
     },[])
 
