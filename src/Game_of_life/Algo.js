@@ -23,6 +23,19 @@ function getnewrandomgrid(){
     return rows 
 }
 
+function getnewpattrengrid(){
+    var new_arr = getnewcleardgrid()
+    var Pattren = [[5,1],[6,1],[6,2],[5,2],[7,11],[6,11],[5,11],[4,12],[8,12],
+        [3,13],[3,14],[9,13],[9,14],[6,15],[4,16],[8,16],[5,17],[6,17],[7,17],
+        [6,18],[5,21],[4,21],[3,21],[3,22],[4,22],[5,22],[6,23],[2,23],[2,25],
+        [6,25],[1,25],[7,25],[4,35],[4,36],[3,35],[3,36]
+        ]
+    for(let i of Pattren){
+        new_arr[i[0]][i[1]] = '1'
+    }
+    return new_arr
+}
+
 function Algo(){
     const [run,setRun] = useState(false)
     const running = useRef()
@@ -87,13 +100,16 @@ function Algo(){
         <button onClick={()=>{
             setGrid(getnewrandomgrid())
         }}>Random</button>
+        <button onClick={()=>{
+            setGrid(getnewpattrengrid())
+        }}>Gosper glider gun</button>
     <div style={{
         display:'grid',gridTemplateColumns:'repeat(50,20px)',gridTemplateRows:'repeat(50,20px)'}}>
         {grid.map((row,i)=>(
             row.map((col,j)=>(
                 <div
                 key={`${i}+${j}`}
-                onClick={()=>(changesatefunctin(i,j))}
+                onClick={()=>{changesatefunctin(i,j);console.log(i,j)}}
                 style={{
                     backgroundColor:grid[i][j] === '1'?"black":undefined,
                     border:"solid 1px black"
