@@ -13,6 +13,16 @@ function getnewcleardgrid(){
     return rows 
 }
 
+function getnewrandomgrid(){
+    const rows = [];
+    for(let i = 0;i<numRows;i++){
+        rows.push(Array.from(Array(numCols),()=>{
+            return Math.random() < 0.3?'1':'0'
+        }))
+    }
+    return rows 
+}
+
 function Algo(){
     const [run,setRun] = useState(false)
     const running = useRef()
@@ -74,6 +84,9 @@ function Algo(){
             running.current = false
             setGrid(getnewcleardgrid())
         }}>clear</button>
+        <button onClick={()=>{
+            setGrid(getnewrandomgrid())
+        }}>Random</button>
     <div style={{
         display:'grid',gridTemplateColumns:'repeat(50,20px)',gridTemplateRows:'repeat(50,20px)'}}>
         {grid.map((row,i)=>(
